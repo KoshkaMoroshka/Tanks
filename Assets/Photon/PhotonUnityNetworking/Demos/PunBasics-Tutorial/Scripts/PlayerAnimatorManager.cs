@@ -61,8 +61,8 @@ namespace Photon.Pun.Demo.PunBasics
 			}
            
 			// deal with movement
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+            float h = Input.GetAxis("Horizontal1");
+            float v = Input.GetAxis("Vertical1");
 
 			// prevent negative Speed.
             if( v < 0 )
