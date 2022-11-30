@@ -135,7 +135,8 @@ public class TankMovement : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             // We own this player: send the others our data
-            stream.SendNext(this);
+            stream.SendNext(this.transform.position);
+            stream.SendNext(this.transform.rotation);
         }
         else
         {

@@ -13,7 +13,7 @@ public class PunGameManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject playerPrefab;
 
-    [SerializeField] public Transform _spawnPoint;
+    [SerializeField] public Transform[] _spawnPoint;
     private void Awake()
     {
         Instance = this;
@@ -28,8 +28,9 @@ public class PunGameManager : MonoBehaviourPunCallbacks
         {
             Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
+            Debug.LogError(PhotonNetwork.CurrentRoom.PlayerCount);
             // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-            PhotonNetwork.Instantiate(this.playerPrefab.name, _spawnPoint.position, _spawnPoint.rotation, 0);
+            PhotonNetwork.Instantiate(this.playerPrefab.name, _spawnPoint[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, _spawnPoint[PhotonNetwork.CurrentRoom.PlayerCount - 1].rotation, 0);
         }
         else
         {
@@ -55,6 +56,7 @@ public class PunGameManager : MonoBehaviourPunCallbacks
         {
             Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient);
 
+            playerPrefab.GetComponent<MeshRenderer>().material.color = Color.blue;
             //LoadArena();
         }
     }
